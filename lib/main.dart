@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.arrow_back),
@@ -149,23 +150,27 @@ class _CustomBoxState extends State<CustomBox> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Container(
+                                            Expanded(
+                                              flex: 3,
                                               child: Text(
                                                   '${reminder.dosage} ${reminder.type}'),
                                             ),
-                                            Switch(
-                                              activeColor: Colors.red,
-                                              value: reminder.status
-                                                  .contains('on'),
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  if (!value) {
-                                                    reminder.status = 'off';
-                                                  } else {
-                                                    reminder.status = 'on';
-                                                  }
-                                                });
-                                              },
+                                            Expanded(
+                                              flex: 1,
+                                              child: Switch(
+                                                activeColor: Colors.red,
+                                                value: reminder.status
+                                                    .contains('on'),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    if (!value) {
+                                                      reminder.status = 'off';
+                                                    } else {
+                                                      reminder.status = 'on';
+                                                    }
+                                                  });
+                                                },
+                                              ),
                                             ),
                                           ],
                                         ),
