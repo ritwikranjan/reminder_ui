@@ -59,113 +59,128 @@ class _CustomBoxState extends State<CustomBox> {
         ),
       );
     } else {
-      return ListView.builder(
-        itemCount: reminderList.length,
-        itemBuilder: (_, index) {
-          return Container(
-            margin: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.0),
+      return Container(
+        child: ListView.builder(
+          itemCount: reminderList.length,
+          itemBuilder: (_, index) {
+            return Container(
+              margin: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+                border: Border.all(width: 2.0, color: Colors.blueGrey[100]),
               ),
-              border: Border.all(width: 2.0, color: Colors.blueGrey[100]),
-            ),
-            child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: (reminderList[index].reminder.length + 1),
-                itemBuilder: (_, subIndex) {
-                  if (subIndex == 0) {
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 8.0),
-                      color: Colors.blueGrey[100],
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Reminder by ${reminderList[index].name}',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.blueGrey[900],
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    );
-                  } else {
-                    ReminderDetail reminder =
-                        reminderList[index].reminder[subIndex - 1];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 8.0),
-                      child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1.0),
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: (reminderList[index].reminder.length + 1),
+                  itemBuilder: (_, subIndex) {
+                    if (subIndex == 0) {
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 8.0),
+                        color: Colors.blueGrey[100],
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Reminder by ${reminderList[index].name}',
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.blueGrey[900],
+                                fontWeight: FontWeight.w500),
                           ),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                    padding: EdgeInsets.all(25.0),
-                                    color: (subIndex % 2 == 0)
-                                        ? Colors.blue
-                                        : Colors.red,
-                                    child: Icon(Icons.healing)),
-                              ),
-                              Expanded(
-                                flex: 7,
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.only(left: 10.0, top: 10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text('${reminder.medicine}'),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 6.0),
-                                            child: Text('${reminder.time}'),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                              '${reminder.dosage} ${reminder.type}'),
-                                          Switch(
-                                            activeColor: Colors.red,
-                                            value:
-                                                reminder.status.contains('on'),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                if (!value) {
-                                                  reminder.status = 'off';
-                                                } else {
-                                                  reminder.status = 'on';
-                                                }
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                        ),
+                      );
+                    } else {
+                      ReminderDetail reminder =
+                          reminderList[index].reminder[subIndex - 1];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 8.0),
+                        child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0),
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                      padding: EdgeInsets.all(25.0),
+                                      color: (subIndex % 2 == 0)
+                                          ? Colors.blue
+                                          : Colors.red,
+                                      child: Icon(Icons.healing)),
                                 ),
-                              )
-                            ],
-                          )),
-                    );
-                  }
-                }),
-          );
-        },
+                                Expanded(
+                                  flex: 7,
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.only(left: 10.0, top: 10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child:
+                                                  Text('${reminder.medicine}'),
+                                            ),
+                                            Expanded(
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 6.0),
+                                                  child:
+                                                      Text('${reminder.time}'),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              child: Text(
+                                                  '${reminder.dosage} ${reminder.type}'),
+                                            ),
+                                            Switch(
+                                              activeColor: Colors.red,
+                                              value: reminder.status
+                                                  .contains('on'),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  if (!value) {
+                                                    reminder.status = 'off';
+                                                  } else {
+                                                    reminder.status = 'on';
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )),
+                      );
+                    }
+                  }),
+            );
+          },
+        ),
       );
     }
   }
